@@ -4,7 +4,7 @@ checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleC
 
 }
 
-stage ('build') {
+stage ('build and package') {
 sh 'mvn -f pom.xml clean package'
 
 }
@@ -13,7 +13,7 @@ stage ('archive') {
 archiveArtifacts 'target/*.war'
 }
 
-stage ('deploy') {
+stage ('deploy and restart service') {
 sh 'cp target/*war /opt/apache-tomcat-8.5.21/webapps/'
 }
 }
